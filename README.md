@@ -1,5 +1,7 @@
 # Mini-libc
 
+#### Contributor: Dumitrascu Filip-Teodor
+
 ## Objectives
 
 - Learn about the structure and functionalities provided by the standard C library
