@@ -16,17 +16,12 @@ The goal is to have a minimally functional libc with features such as string man
 
 The implementation of mini-libc will be **freestanding**, i.e. it will not use any outside library calls.
 It will be implemented on top of the system call interface provided by Linux on an `x86_64` architecture.
-Any function you require, that is typically part of libc, you will have to implement.
-You can reuse functions that you implement in other parts of the mini-libc.
-
-In case you are using a macOS device with ARM64 / Aarch64, you will have to install an `x86_64` virtual machine.
 
 ## Support Code
 
 The support code consists of three directories:
 
 - `src/` is the skeleton mini-libc implementation.
-  You will have to implement missing parts marked as `TODO` items.
 
 - `samples/` stores use cases and tests of mini-libc.
 
@@ -40,40 +35,21 @@ hence the dependency on the `x86_64` architecture.
 
 The application programming interface (API) of the C standard library is declared in a number of header files.
 Each header file contains one or more function declarations, data type definitions and macros.
-For your minimal implementation, the following header files are of interest:
+For this minimal implementation, the following header files are of interest:
 
 - `<string.h>`: defines string-handling functions
 
-  For this assignment, you will have to implement the following functions: `strcpy()`, `strcat()`, `strlen()`, `strncpy()`, `strncat()`, `strcmp()`, `strncmp()`, `strstr()`, `strrstr()`, `memcpy()`, `memset()`, `memmove()`, `memcmp()`.
-
 - `<stdio.h>`: defines printing and I/O functions
-
-  For this assignment, you will have to implement `puts()`.
 
 - `<unistd.h>`, `<sys/fcntl.h>` and `<sys/stat.h>`: define I/O primitives
 
-  For this assignment, you will have to implement the following functions: `open()`, `close()`, `lseek()`, `stat()`, `fstat()`, `truncate()`, `ftruncate()`.
+  Other implemented functions: `open()`, `close()`, `lseek()`, `stat()`, `fstat()`, `truncate()`, `ftruncate()`, `nanosleep()` and `sleep()`.
 
-  You will also have to implement the `nanosleep()` and `sleep()` functions.
-
-- `<stdlib.h`> and `<sys/mman.h>` define memory allocation functions
-
-  For this assignment, you will have to implement the following functions: `malloc()`, `free()`, `calloc()`, `realloc()`, `realloc_array()`, `mmap()`, `mremap()`, `munmap()`.
+- `<stdlib.h`> and `<sys/mman.h>` define memory allocation functions: `malloc()`, `free()`, `calloc()`, `realloc()`, `realloc_array()`, `mmap()`, `mremap()`, `munmap()`.
 
   For managing memory areas, a basic list structure is provided in `include/internal/mm/mem_list.h` and `mm/mem_list.c`.
 
 - `<errno.h>` and `errno.c`: declare and define the integer variable `errno`, which is set by system calls and some library functions in the event of an error to indicate what went wrong.
-
-Some tests do not build.
-This is intentional.
-You will have to add the missing features to make those tests compile, that is
-
-- the `time.h` header
-- the declaration and the implementation of `puts()`
-- the declaration and the implementation of `nanosleep()` and `sleep()`
-- the update of the libc `Makefile` to build the source code files implementing `puts()`, `nanosleep()` and `sleep()`
-
-  :exclamation::exclamation: **Pay attention** to which functions have to modify the `errno` variable.
 
 ### Building mini-libc
 
